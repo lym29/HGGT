@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="HGGT: feed-forward 3D hand mesh and camera pose estimation from uncalibrated multi-view images, with strong generalization to in-the-wild settings.">
+  <meta property="og:title" content="HGGT: Robust 3D Hand Mesh from Uncalibrated Images"/>
+  <meta property="og:description" content="Hand Geometry Grounding Transformer — joint 3D hand mesh recovery and camera pose from uncalibrated views."/>
+  <meta property="og:url" content=""/>
+  <meta property="og:image" content="static/images/teaser.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="HGGT: Robust 3D Hand Mesh from Uncalibrated Images">
+  <meta name="twitter:description" content="Hand Geometry Grounding Transformer — calibration-free multi-view hand reconstruction.">
+  <meta name="twitter:image" content="static/images/teaser.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="hand pose, 3D hand mesh, multi-view, uncalibrated cameras, transformer, VGGT, ECCV">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HGGT — Hand Geometry Grounding Transformer</title>
+  <link rel="icon" type="image/x-icon" href="static/images/easy-icon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+<!-- Hero: title, authors, links -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">HGGT: Robust and Flexible 3D Hand Mesh Reconstruction from Uncalibrated Images</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://lym29.github.io/" target="_blank">Yumeng Liu</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://www.xxlong.site/" target="_blank">Xiao-Xiao Long</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="https://people.mpi-inf.mpg.de/~mhaberma/" target="_blank">Marc Habermann</a><sup>3</sup>,</span>
+            <span class="author-block"><a href="#" target="_blank">Xuanze Yang</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://clinplayer.github.io/" target="_blank">Cheng Lin</a><sup>4</sup>,</span>
+            <span class="author-block"><a href="https://liuyuan-pal.github.io/" target="_blank">Yuan Liu</a><sup>5</sup>,</span>
+            <span class="author-block"><a href="https://yuexinma.me/" target="_blank">Yuexin Ma</a><sup>6</sup>,</span>
+            <span class="author-block"><a href="https://engineering.tamu.edu/cse/profiles/Wang-Wenping.html" target="_blank">Wenping Wang</a><sup>7*</sup>,</span>
+            <span class="author-block"><a href="http://staff.ustc.edu.cn/~lgliu/" target="_blank">Ligang Liu</a><sup>1*</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.5rem;">
+            <span class="author-block"><sup>1</sup>University of Science and Technology of China,</span>
+            <span class="author-block"><sup>2</sup>Nanjing University,</span>
+            <span class="author-block"><sup>3</sup>Max-Planck-Institut f&uuml;r Informatik,</span>
+            <span class="author-block"><sup>4</sup>Macau University of Science and Technology,</span><br>
+            <span class="author-block"><sup>5</sup>Hong Kong University of Science and Technology,</span>
+            <span class="author-block"><sup>6</sup>ShanghaiTech University,</span>
+            <span class="author-block"><sup>7</sup>Texas A&amp;M University</span>
+            <br>
+            <span class="eql-cntrb">* Corresponding authors</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="#" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code (coming soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-database"></i></span>
+                <span>Dataset (coming soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body teaser-figure">
+      <img src="static/images/teaser.png" alt="HGGT teaser: 3D hand mesh reconstruction from uncalibrated multi-view images" style="width:100%;">
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        We introduce <b>H</b>and <b>G</b>eometry <b>G</b>rounding <b>T</b>ransformer (<b>HGGT</b>), a scalable and generalized solution for 3D hand mesh recovery. Our method unifies diverse data sources to achieve robust performance across varying camera viewpoints and environments.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- TL;DR -->
+<section class="section hero is-light tldr-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content">
+          <p class="tldr-lead">
+            We present the <b>first feed-forward framework</b> that jointly estimates 3D hand meshes and camera poses from <b>uncalibrated</b> multi-view images.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recovering high-fidelity 3D hand geometry from images is a critical task in computer vision, holding significant value for domains such as robotics, animation and VR/AR. Crucially, scalable applications demand both accuracy and deployment flexibility, requiring the ability to leverage massive amounts of unstructured image data from the internet or enable deployment on consumer-grade RGB cameras without complex calibration. However, current methods face a dilemma. While single-view approaches are easy to deploy, they suffer from depth ambiguity and occlusion. Conversely, multi-view systems resolve these uncertainties but typically demand fixed, calibrated setups, limiting their real-world utility. To bridge this gap, we draw inspiration from 3D foundation models that learn explicit geometry directly from visual data. By reformulating hand reconstruction from arbitrary views as a visual-geometry grounded task, we propose a feed-forward architecture that, for the first time in literature, jointly infers 3D hand meshes and camera poses from uncalibrated views. Extensive evaluations show that our approach outperforms state-of-the-art benchmarks and demonstrates strong generalization to uncalibrated, in-the-wild scenarios.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pipeline -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <div class="content">
+      <img src="static/images/pipeline_new.png" alt="HGGT pipeline" style="width:100%; border-radius:8px;">
+      <p class="has-text-centered" style="margin-top:0.75rem; color:#555;">
+        <b>The pipeline of HGGT.</b> Given uncalibrated multi-view images, we first employ a VGGT Aggregator to extract image tokens and initial camera tokens. These are processed alongside learnable random hand tokens via a series of Cross-attention Blocks. Finally, two parallel heads predict the camera parameters and the canonical MANO parameters (&theta;, &beta;, t), which can be re-projected onto the input views for verification.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Synthetic Dataset -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Synthetic Dataset</h2>
+    <div class="content">
+      <img src="static/images/dataset.png" alt="Synthetic dataset samples" style="width:100%; border-radius:8px;">
+      <p class="has-text-centered" style="margin-top:0.75rem; color:#555;">
+        We introduce a new <b>synthetic dataset</b> and a <b>mixed-data training strategy</b> that effectively leverages real monocular data, real multi-view data and synthetic multi-view data. The diversity of data resource significantly enhances the model's generalization capabilities across different domains.
+        Here are some samples from our synthetic dataset. It contains diverse photorealistic hand-object interactions rendered with randomized camera viewpoints, providing critical viewpoint diversity absent in real-world captures.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Qualitative Comparison -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Qualitative Comparison</h2>
+    <div id="comparison-carousel" class="carousel results-carousel">
+      <div class="item" style="display:flex; justify-content:center;">
+        <img src="static/images/comp_interhand_v3.png" alt="Qualitative comparison on InterHand2.6M" style="height:500px; object-fit:contain;">
+      </div>
+      <div class="item" style="display:flex; justify-content:center;">
+        <img src="static/images/comp_oakink_ho3d_v3.png" alt="Qualitative comparison on OakInk and HO3D" style="height:500px; object-fit:contain;">
+      </div>
+      <div class="item" style="display:flex; justify-content:center;">
+        <img src="static/images/comp_arctic_v3.png" alt="Qualitative comparison on Arctic" style="height:500px; object-fit:contain;">
+      </div>
+      <div class="item" style="display:flex; justify-content:center;">
+        <img src="static/images/comp_dexycb_v3.png" alt="Qualitative comparison on DexYCB" style="height:500px; object-fit:contain;">
+      </div>
+    </div>
+    <p class="has-text-centered" style="margin-top:1rem; color:#555; max-width:48rem; margin-left:auto; margin-right:auto;">
+      <b>Qualitative comparison on InterHand2.6M, OakInk, HO3D, Arctic and DexYCB.</b> We compare our method against baselines on open benchmarks. Rows correspond to: <b>Input</b> RGB, Ground Truth, <b>(a)</b> Cameras Predicted by VGGT + POEM-large, <b>(b)</b> POEM-large, <b>(c)</b> Cameras Predicted by Ours + POEM-large, and <b>(d)</b> Ours (Full).
+    </p>
+  </div>
+</section>
+
+
+<!-- Interactive 3D Visualization -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Interactive 3D Visualization</h2>
+    <p class="has-text-centered" style="margin-bottom:1.5rem; color:#555;">
+      Select a dataset and sample to explore the 3D hand mesh reconstruction interactively. Each visualization contains three panels: predicted mesh, ground truth, and an overlay view.
+    </p>
+
+    <div class="tabs is-centered is-boxed" id="viz-tabs">
+      <ul>
+        <li class="is-active" data-tab="arctic"><a>Arctic</a></li>
+        <li data-tab="dexycb"><a>DexYCB</a></li>
+        <li data-tab="ho3d"><a>HO3D</a></li>
+        <li data-tab="interhand"><a>InterHand</a></li>
+        <li data-tab="oakink"><a>OakInk</a></li>
+      </ul>
+    </div>
+
+    <div class="select is-small" id="viz-sample-select" style="margin-bottom:1rem; display:flex; justify-content:center;">
+      <select id="sample-selector" onchange="loadVisualization()">
+      </select>
+    </div>
+
+    <div id="viz-container" style="width:100%; border-radius:8px; overflow:hidden; border:1px solid #ddd; background:#f5f5f5;">
+      <iframe id="viz-iframe" style="width:100%; height:550px; border:none;" src=""></iframe>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var samples = {
+    arctic:    ["sample_0000_visualization.html", "sample_4750_visualization.html"],
+    dexycb:    ["sample_0100_visualization.html", "sample_1000_visualization.html", "sample_4500_visualization.html"],
+    ho3d:      ["sample_0000_visualization.html", "sample_2100_visualization.html"],
+    interhand: ["sample_0000_visualization.html", "sample_5000_visualization.html"],
+    oakink:    ["sample_0100_visualization.html", "sample_2100_visualization.html", "sample_2800_visualization.html"]
+  };
+  var folders = {
+    arctic: "Arctic", dexycb: "DexYCB", ho3d: "HO3D", interhand: "Interhand", oakink: "OakInk"
+  };
+  var currentTab = "arctic";
+
+  function populateSamples(tab) {
+    var sel = document.getElementById("sample-selector");
+    sel.innerHTML = "";
+    samples[tab].forEach(function(s) {
+      var opt = document.createElement("option");
+      opt.value = s;
+      opt.textContent = s.replace("_visualization.html", "").replace("_", " ");
+      sel.appendChild(opt);
+    });
+  }
+
+  window.loadVisualization = function() {
+    var sel = document.getElementById("sample-selector");
+    var file = sel.value;
+    var iframe = document.getElementById("viz-iframe");
+    iframe.src = "results/" + folders[currentTab] + "/" + file;
+  };
+
+  document.querySelectorAll("#viz-tabs li").forEach(function(li) {
+    li.addEventListener("click", function() {
+      document.querySelectorAll("#viz-tabs li").forEach(function(l) { l.classList.remove("is-active"); });
+      li.classList.add("is-active");
+      currentTab = li.getAttribute("data-tab");
+      populateSamples(currentTab);
+      loadVisualization();
+    });
+  });
+
+  populateSamples("arctic");
+  loadVisualization();
+})();
+</script>
+
+<!-- In-the-wild Results -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">In-the-Wild Video Inference</h2>
+    <div class="content">
+      <img src="static/images/real_demo.png" alt="In-the-wild video inference results" style="width:100%; border-radius:8px;">
+      <p class="has-text-centered" style="margin-top:0.75rem; color:#555;">
+        <b>Qualitative results on in-the-wild video sequences.</b> The video was captured using only two phones with random position. Our model processes the video frame-by-frame and produces accurate 3D hand reconstruction.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Demo Video -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Demo Video Captured with Uncalibrated Cameras</h2>
+    <video poster="" id="demo-video" autoplay controls muted loop playsinline style="width:100%; border-radius:10px;">
+      <source src="static/videos/real_demo_final_version.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<!-- <section class="section hero is-light" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{liu2025hggt,
+  title   = {HGGT: Robust and Flexible 3D Hand Mesh Reconstruction from Uncalibrated Images},
+  author  = {Liu, Yumeng and Long, Xiao-xiao and Habermann, Marc and Yang, Xuanze
+             and Lin, Cheng and Liu, Yuan and Ma, Yuexin and Wang, Wenping and Liu, Ligang},
+  year    = {2025}
+}</code></pre>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
