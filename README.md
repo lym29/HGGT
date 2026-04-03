@@ -45,7 +45,7 @@
 ---
 
 <p align="center">
-  <img src="https://lym29.github.io/HGGT/static/images/teaser.png" alt="HGGT teaser: 3D hand mesh reconstruction from uncalibrated multi-view images" width="100%">
+  <img src="media/teaser.png" alt="HGGT teaser: 3D hand mesh reconstruction from uncalibrated multi-view images" width="100%">
 </p>
 
 <p align="center">
@@ -100,6 +100,10 @@ for f in *.tar; do tar -xf "$f"; done
 Please refer to the [dataset page](https://huggingface.co/datasets/catmint123/HGGT-synthetic-data) for details on the dataset structure.
 
 ---
+
+## Citation
+
+If you find our work useful in your research, please cite:
 
 ```bibtex
 @article{liu2026hggt,
