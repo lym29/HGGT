@@ -60,7 +60,7 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 
 ## TODO
 
-- [ ] Release synthetic dataset on Hugging Face
+- [x] Release synthetic dataset on Hugging Face
 - [ ] Release dataset generation pipeline code
 - [ ] Release pretrained model checkpoints
 - [ ] Release model inference code
