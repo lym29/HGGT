@@ -25,18 +25,10 @@
 </p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2603.23997">
-    <img src="https://img.shields.io/badge/arXiv-2603.23997-b31b1b.svg?logo=arxiv" alt="arXiv">
-  </a>
-  <a href="https://lym29.github.io/HGGT/">
-    <img src="https://img.shields.io/badge/Project_Page-HGGT-blue?logo=googlechrome&logoColor=white" alt="Project Page">
-  </a>
-  <a href="https://huggingface.co/datasets/catmint123/HGGT-synthetic-data">
-    <img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Dataset-yellow" alt="Hugging Face Dataset">
-  </a>
-  <a href="https://github.com/lym29/HGGT">
-    <img src="https://img.shields.io/badge/GitHub-Code-black?logo=github" alt="GitHub">
-  </a>
+  <a href="https://arxiv.org/abs/2603.23997"><img src="https://img.shields.io/badge/arXiv-2603.23997-b31b1b.svg?logo=arxiv" alt="arXiv"></a>
+  <a href="https://lym29.github.io/HGGT/"><img src="https://img.shields.io/badge/Project_Page-HGGT-blue?logo=googlechrome&logoColor=white" alt="Project Page"></a>
+  <a href="https://huggingface.co/datasets/catmint123/HGGT-synthetic-data"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Dataset-yellow" alt="Hugging Face Dataset"></a>
+  <a href="https://github.com/lym29/HGGT"><img src="https://img.shields.io/badge/GitHub-Code-black?logo=github" alt="GitHub"></a>
 </p>
 
 ---
