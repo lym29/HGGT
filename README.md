@@ -27,6 +27,7 @@
   <a href="https://arxiv.org/abs/2603.23997"><img src="https://img.shields.io/badge/arXiv-2603.23997-b31b1b.svg?logo=arxiv" alt="arXiv"></a>
   <a href="https://lym29.github.io/HGGT/"><img src="https://img.shields.io/badge/Project_Page-HGGT-blue?logo=googlechrome&logoColor=white" alt="Project Page"></a>
   <a href="https://huggingface.co/datasets/catmint123/HGGT-synthetic-data"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Dataset-yellow" alt="Hugging Face Dataset"></a>
+  <a href="https://huggingface.co/catmint123/HGGT"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Model-green" alt="Model Weight"></a>
   <a href="https://github.com/lym29/HGGT"><img src="https://img.shields.io/badge/GitHub-Code-black?logo=github" alt="GitHub"></a>
 </p>
 
@@ -50,8 +51,8 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 
 - [x] Release synthetic dataset on Hugging Face
 - [ ] Release dataset generation pipeline code (due July 17)
-- [ ] Release pretrained model checkpoints (due July 17)
-- [ ] Release model inference code
+- [x] Release pretrained model checkpoints 
+- [ ] Release model inference code (due July 17)
 - [ ] Release demo scripts
 
 ---
