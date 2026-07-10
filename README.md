@@ -6,9 +6,9 @@
   <a href="https://people.mpi-inf.mpg.de/~mhaberma/">Marc Habermann</a><sup>3</sup>,
   <a href="https://github.com/TheVaticanCameos">Xuanze Yang</a><sup>1</sup>,
   <a href="https://clinplayer.github.io/">Cheng Lin</a><sup>4</sup>,
+  <br>
   <a href="https://liuyuan-pal.github.io/">Yuan Liu</a><sup>5</sup>,
   <a href="https://yuexinma.me/">Yuexin Ma</a><sup>6</sup>,
-  <a href="https://engineering.tamu.edu/cse/profiles/Wang-Wenping.html">Wenping Wang</a><sup>7*</sup>,
   <a href="http://staff.ustc.edu.cn/~lgliu/">Ligang Liu</a><sup>1*</sup>
 </p>
 
@@ -19,9 +19,8 @@
   <sup>4</sup>MUST Macau &nbsp;
   <sup>5</sup>HKUST &nbsp;
   <sup>6</sup>ShanghaiTech &nbsp;
-  <sup>7</sup>Texas A&amp;M University
   <br>
-  <sup>*</sup>Corresponding authors
+  <sup>*</sup>Corresponding author
 </p>
 
 <p align="center">
