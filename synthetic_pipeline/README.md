@@ -56,3 +56,10 @@ Download DART's raw hand textures and accessories:
 
 After downloading, extract the files and place them in the texture directory used
 by your rendering configuration.
+
+**Note:** The original DART asset paths contained spaces, which can cause errors on
+some operating systems. We renamed the affected directories accordingly. The expected
+path is now
+`DART_texture_template_mesh/template_mesh/original_mano_template` (see
+[`graspxl_dataloader.py` line 44](https://github.com/lym29/HGGT/blob/d46eb7085e98c92db404b88e71d7d6be6c914101/synthetic_pipeline/graspxl_dataloader.py#L44)).
+
