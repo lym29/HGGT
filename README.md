@@ -68,23 +68,6 @@ conda activate hggt
 pip install -r requirements.txt
 ```
 
-### Install chumpy and pytorch3d from source
-
-```bash
-mkdir -p third_party
-cd third_party
-
-git clone https://github.com/mattloper/chumpy.git
-cd chumpy
-pip install --no-build-isolation .
-cd ..
-
-git clone https://github.com/facebookresearch/pytorch3d.git
-cd pytorch3d
-pip install --no-build-isolation .
-cd ../..
-```
-
 ### MANO models (optional, for mesh overlay)
 
 Download MANO from the [MANO website](http://mano.is.tue.mpg.de/), unzip, and place the model files under:
@@ -132,7 +115,7 @@ Bundled examples live under [`examples/multiview/`](examples/multiview/) (2 samp
 Typical outputs:
 
 - `input_mosaic.jpg` — input views side-by-side
-- `overlay_view_XX.jpg` — projected mesh wireframe (if MANO is available)
+- `overlay_mosaic.jpg` — solid mesh overlays for all views side-by-side (pyrender)
 - `result.npz` — `mano_params`, cameras, and vertices when MANO is available
 
 ---

@@ -26,8 +26,10 @@ import torch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+os.environ.setdefault("PYOPENGL_PLATFORM", "egl")
+
 from hggt.utils.hf_load import DEFAULT_HF_REPO, load_hggt
-from hggt.utils.mano_utils import decode_mano_and_cameras, load_mano_model, overlay_mesh_wireframe
+from hggt.utils.mano_utils import decode_mano_and_cameras, load_mano_model, overlay_hand_on_image
 from hggt.utils.multiview_io import build_mosaic, load_multiview_folder
 
 
@@ -159,21 +161,25 @@ def main() -> None:
         if "pred_extrinsics" in decoded:
             save_dict["pred_extrinsics"] = decoded["pred_extrinsics"]
             save_dict["pred_intrinsics"] = decoded["pred_intrinsics"]
+            overlays: list[np.ndarray] = []
             for view_idx in range(num_views):
-                overlay = overlay_mesh_wireframe(
-                    images_rgb[view_idx],
-                    decoded["pred_verts"],
-                    faces,
-                    decoded["pred_extrinsics"][view_idx],
-                    decoded["pred_intrinsics"][view_idx],
+                overlays.append(
+                    overlay_hand_on_image(
+                        images_rgb[view_idx],
+                        decoded["pred_verts"],
+                        faces,
+                        decoded["pred_extrinsics"][view_idx],
+                        decoded["pred_intrinsics"][view_idx],
+                    )
                 )
-                out_path = os.path.join(args.output_dir, f"overlay_view_{view_idx:02d}.jpg")
-                cv2.imwrite(
-                    out_path,
-                    cv2.cvtColor(overlay, cv2.COLOR_RGB2BGR),
-                    [cv2.IMWRITE_JPEG_QUALITY, 95],
-                )
-                print(f"Saved {out_path}")
+            overlay_mosaic = build_mosaic(overlays)
+            mosaic_out = os.path.join(args.output_dir, "overlay_mosaic.jpg")
+            cv2.imwrite(
+                mosaic_out,
+                cv2.cvtColor(overlay_mosaic, cv2.COLOR_RGB2BGR),
+                [cv2.IMWRITE_JPEG_QUALITY, 95],
+            )
+            print(f"Saved {mosaic_out}")
     else:
         print(
             f"MANO not found at {mano_path} (expected MANO_RIGHT.pkl). "
