@@ -8,6 +8,7 @@ hydra-core
 rootutils
 hydra-core
 Pillow
+opencv-python-headless
 huggingface_hub
 tensorboard
 fvcore

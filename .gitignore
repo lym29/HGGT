@@ -45,3 +45,12 @@ htmlcov/
 # Local environment files
 .env
 .env.*
+
+# Demo outputs and local third-party clones
+outputs/
+third_party/chumpy/
+third_party/pytorch3d/
+
+# MANO weights (license-restricted; download separately)
+assets/mano_v1_2
+scripts/

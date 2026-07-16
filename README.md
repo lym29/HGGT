@@ -51,9 +51,93 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 
 - [x] Release synthetic dataset on Hugging Face
 - [ ] Release dataset generation pipeline code (due July 17)
-- [x] Release pretrained model checkpoints 
+- [x] Release pretrained model checkpoints
 - [ ] Release model inference code (due July 17)
 - [ ] Release demo scripts
+
+---
+
+## Installation
+
+### Create the conda environment
+
+```bash
+conda create -n hggt python=3.10 -y
+conda activate hggt
+
+# Build deps used by pytorch3d (recommended)
+conda install -c conda-forge boost-cpp cgal-cpp eigen -y
+
+pip install -r requirements.txt
+pip install opencv-python-headless
+```
+
+### Install chumpy and pytorch3d from source
+
+```bash
+mkdir -p third_party
+cd third_party
+
+git clone https://github.com/mattloper/chumpy.git
+cd chumpy
+pip install --no-build-isolation .
+cd ..
+
+git clone https://github.com/facebookresearch/pytorch3d.git
+cd pytorch3d
+pip install --no-build-isolation .
+cd ../..
+```
+
+### MANO models (optional, for mesh overlay)
+
+Download MANO from the [MANO website](http://mano.is.tue.mpg.de/), unzip, and place the model files under:
+
+```text
+assets/mano_v1_2/models/MANO_RIGHT.pkl
+```
+
+Mesh overlays require MANO; loading the network and writing `mano_params` to `result.npz` does not.
+
+### Pretrained weights
+
+Default demo loading uses Hugging Face:
+
+```text
+https://huggingface.co/catmint123/HGGT
+```
+
+via `HGGT.from_pretrained("catmint123/HGGT")`. A local training checkpoint (`.pt` with a `model` state dict) can be passed with `--checkpoint`.
+
+---
+
+## Demo (pre-cropped multi-view images)
+
+This demo reads **already hand-cropped** multi-view images (one square crop per view), runs HGGT, and writes a mosaic / optional mesh overlays / `result.npz`.
+
+Hand detection from full-frame images and video demos will be added in a follow-up release.
+
+```bash
+# Example: Arctic sample (multi-view)
+python demo/demo_multiview_images.py \
+  --image_folder examples/multiview/Arctic/sample_0000 \
+  --output_dir outputs/demo_arctic_0000
+
+# Optional: local checkpoint and MANO path
+python demo/demo_multiview_images.py \
+  --image_folder examples/multiview/HO3D/sample_0000 \
+  --checkpoint /path/to/checkpoint.pt \
+  --mano_model_path assets/mano_v1_2/models \
+  --output_dir outputs/demo_ho3d_0000
+```
+
+Bundled examples live under [`examples/multiview/`](examples/multiview/) (2 samples from each of HO3D, DexYCB, Arctic, Interhand, Oakink, Freihand). Freihand examples are single-view.
+
+Typical outputs:
+
+- `input_mosaic.jpg` — input views side-by-side
+- `overlay_view_XX.jpg` — projected mesh wireframe (if MANO is available)
+- `result.npz` — `mano_params`, cameras, and vertices when MANO is available
 
 ---
 
