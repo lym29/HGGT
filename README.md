@@ -65,11 +65,7 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 conda create -n hggt python=3.10 -y
 conda activate hggt
 
-# Build deps used by pytorch3d (recommended)
-conda install -c conda-forge boost-cpp cgal-cpp eigen -y
-
 pip install -r requirements.txt
-pip install opencv-python-headless
 ```
 
 ### Install chumpy and pytorch3d from source
