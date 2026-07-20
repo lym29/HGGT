@@ -45,11 +45,11 @@
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Demo (pre-cropped multi-view images)](#demo-pre-cropped-multi-view-images)
-- [Evaluation](#evaluation)
-- [Dataset](#dataset)
-- [Acknowledgements](#acknowledgements)
+- [⚙️ Installation](#⚙️-installation)
+- [🚀 Demo (pre-cropped multi-view images)](#🚀-demo-pre-cropped-multi-view-images)
+- [📊 Evaluation](#📊-evaluation)
+- [📁 Dataset](#📁-dataset)
+- [🙏 Acknowledgements](#🙏-acknowledgements)
 
 ---
 
@@ -67,7 +67,7 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 ### Create the conda environment
 
@@ -100,7 +100,7 @@ via `HGGT.from_pretrained("catmint123/HGGT")`. A local training checkpoint (`.pt
 
 ---
 
-## Demo (pre-cropped multi-view images)
+## 🚀 Demo (pre-cropped multi-view images)
 
 This demo reads **already hand-cropped** multi-view images (one square crop per view), runs HGGT, and writes a mosaic / optional mesh overlays / `result.npz`.
 
@@ -130,7 +130,7 @@ Typical outputs:
 
 ---
 
-## Evaluation
+## 📊 Evaluation
 
 Evaluate HGGT on multi-view WebDataset tars from standard hand datasets (HO3D, DexYCB, Arctic, Interhand, Oakink, Freihand).
 
@@ -138,7 +138,7 @@ Download the evaluation data from [JubSteven/POEM-v2](https://huggingface.co/dat
 
 ---
 
-## Dataset
+## 📁 Dataset
 
 ### Download
 
@@ -171,7 +171,7 @@ Please refer to the [dataset page](https://huggingface.co/datasets/catmint123/HG
 
 ---
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 We thank the authors of the following projects that this work builds upon:
 
