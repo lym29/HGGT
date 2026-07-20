@@ -3,6 +3,7 @@ torchvision==0.18.1
 torch-cluster -f https://data.pyg.org/whl/torch-2.3.1+cu121.html
 tensorboard
 numpy==1.26.1
+scipy
 rootutils
 hydra-core
 rootutils

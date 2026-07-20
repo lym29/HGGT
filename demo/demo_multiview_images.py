@@ -2,7 +2,7 @@
 """Single-frame multi-view hand mesh demo on pre-cropped images.
 
 Assumes each input image is already a hand-centric square crop (as used during
-HGGT training / POEM preprocessing). Hand detection is not included in this
+HGGT training / multi-view crop preprocessing). Hand detection is not included in this
 demo; a detection-based pipeline will be added later.
 
 Example::

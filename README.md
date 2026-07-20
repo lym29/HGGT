@@ -43,6 +43,16 @@
 
 ---
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Demo (pre-cropped multi-view images)](#demo-pre-cropped-multi-view-images)
+- [Evaluation](#evaluation)
+- [Dataset](#dataset)
+- [Acknowledgements](#acknowledgements)
+
+---
+
 ## TL;DR
 
 We present the **first feed-forward framework** that jointly estimates 3D hand meshes and camera poses from **uncalibrated** multi-view images.
@@ -50,10 +60,10 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 ## TODO
 
 - [x] Release synthetic dataset on Hugging Face
-- [ ] Release dataset generation pipeline code (due July 17)
+- [x] Release dataset generation pipeline code (due July 17)
 - [x] Release pretrained model checkpoints
 - [x] Release model inference code (due July 17)
-- [ ] Release evaluation scripts (due July 20)
+- [x] Release evaluation scripts (due July 20)
 
 ---
 
@@ -68,7 +78,7 @@ conda activate hggt
 pip install -r requirements.txt
 ```
 
-### MANO models (optional, for mesh overlay)
+### MANO models (required for mesh overlay and evaluation)
 
 Download MANO from the [MANO website](http://mano.is.tue.mpg.de/), unzip, and place the model files under:
 
@@ -76,7 +86,7 @@ Download MANO from the [MANO website](http://mano.is.tue.mpg.de/), unzip, and pl
 assets/mano_v1_2/models/MANO_RIGHT.pkl
 ```
 
-Mesh overlays require MANO; loading the network and writing `mano_params` to `result.npz` does not.
+Mesh overlays and multi-view image evaluation require MANO; loading the network and writing `mano_params` to `result.npz` does not.
 
 ### Pretrained weights
 
@@ -120,6 +130,14 @@ Typical outputs:
 
 ---
 
+## Evaluation
+
+Evaluate HGGT on multi-view WebDataset tars from standard hand datasets (HO3D, DexYCB, Arctic, Interhand, Oakink, Freihand).
+
+Download the evaluation data from [JubSteven/POEM-v2](https://huggingface.co/datasets/JubSteven/POEM-v2/tree/main). Full setup, launchers (`run_eval_mv_image.sh`, `eval_mv_image.slurm`), and metric details are in [`eval/README.md`](eval/README.md).
+
+---
+
 ## Dataset
 
 ### Download
@@ -153,6 +171,16 @@ Please refer to the [dataset page](https://huggingface.co/datasets/catmint123/HG
 
 ---
 
+## Acknowledgements
+
+We thank the authors of the following projects that this work builds upon:
+
+- [VGGT](https://github.com/facebookresearch/vggt) 
+- [GraspXL](https://github.com/zdchan/GraspXL) 
+- [POEM-v2](https://github.com/JubSteven/POEM-v2/tree/release)
+
+---
+
 ## Citation
 
 If you find our work useful in your research, please cite:
@@ -160,7 +188,7 @@ If you find our work useful in your research, please cite:
 ```bibtex
 @article{liu2026hggt,
   title={HGGT: Robust and Flexible 3D Hand Mesh Reconstruction from Uncalibrated Images},
-  author={Liu, Yumeng and Long, Xiao-Xiao and Habermann, Marc and Yang, Xuanze and Lin, Cheng and Liu, Yuan and Ma, Yuexin and Wang, Wenping and Liu, Ligang},
+  author={Liu, Yumeng and Long, Xiao-Xiao and Habermann, Marc and Yang, Xuanze and Lin, Cheng and Liu, Yuan and Ma, Yuexin and Liu, Ligang},
   journal={arXiv preprint arXiv:2603.23997},
   year={2026}
 }
