@@ -173,17 +173,17 @@ Please refer to the [dataset page](https://huggingface.co/datasets/catmint123/HG
 
 ## 🙏 Acknowledgements
 
-We thank the authors of the following projects that this work builds upon:
+We would like to express our gratitude to the authors and contributors of the following projects:
 
-- [VGGT](https://github.com/facebookresearch/vggt) 
-- [GraspXL](https://github.com/zdchan/GraspXL) 
+- [VGGT](https://github.com/facebookresearch/vggt)
+- [GraspXL](https://github.com/zdchan/GraspXL)
 - [POEM-v2](https://github.com/JubSteven/POEM-v2/tree/release)
 
 ---
 
 ## Citation
 
-If you find our work useful in your research, please cite:
+If you find our work useful, please consider citing us using the following BibTeX entry:
 
 ```bibtex
 @article{liu2026hggt,
