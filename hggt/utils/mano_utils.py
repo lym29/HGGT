@@ -151,7 +151,7 @@ def render_hand_mesh(
         fx=fx,
         fy=fy,
         cx=cx,
-        cy=img_h - cy,
+        cy=cy,
         zfar=1e12,
     )
     scene.add(camera, pose=np.eye(4))
