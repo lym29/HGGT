@@ -48,6 +48,7 @@
 - [⚙️ Installation](#⚙️-installation)
 - [🚀 Demo (pre-cropped multi-view images)](#🚀-demo-pre-cropped-multi-view-images)
 - [📊 Evaluation](#📊-evaluation)
+- [🏋️ Training](#🏋️-training)
 - [📁 Dataset](#📁-dataset)
 - [🙏 Acknowledgements](#🙏-acknowledgements)
 
@@ -64,6 +65,7 @@ We present the **first feed-forward framework** that jointly estimates 3D hand m
 - [x] Release pretrained model checkpoints
 - [x] Release model inference code (due July 17)
 - [x] Release evaluation scripts (due July 20)
+- [x] Release fine-tuning code and configuration
 
 ---
 
@@ -138,6 +140,19 @@ Download the evaluation data from [JubSteven/POEM-v2](https://huggingface.co/dat
 
 ---
 
+## 🏋️ Training
+
+Fine-tune HGGT with alternating single-view hand data and synthetic multi-view data. The release includes a configurable PyTorch training loop, a four-GPU recipe, and a generic Slurm launcher.
+
+See [`training/README.md`](training/README.md) for data preparation, checkpoint initialization, training, and resume instructions. A compatible HGGT checkpoint is required to initialize fine-tuning.
+
+```bash
+# Inspect the default recipe without downloading data or model weights
+python -m hggt.training.launch --config training/configs/finetune.yaml --check-config
+```
+
+---
+
 ## 📁 Dataset
 
 ### Download
@@ -163,8 +178,10 @@ snapshot_download(
 After downloading, extract the tar shards:
 
 ```bash
-cd data/hggt_synthetic/small
-for f in *.tar; do tar -xf "$f"; done
+for shard in data/hggt_synthetic/data/{small,medium,large}/*.tar; do
+  [ -f "$shard" ] || continue
+  tar -xf "$shard" -C "$(dirname "$shard")"
+done
 ```
 
 Please refer to the [dataset page](https://huggingface.co/datasets/catmint123/HGGT-synthetic-data) for details on the dataset structure.
@@ -176,6 +193,7 @@ Please refer to the [dataset page](https://huggingface.co/datasets/catmint123/HG
 We would like to express our gratitude to the authors and contributors of the following projects:
 
 - [VGGT](https://github.com/facebookresearch/vggt)
+- [HaMeR](https://github.com/geopavlakos/hamer)
 - [GraspXL](https://github.com/zdchan/GraspXL)
 - [POEM-v2](https://github.com/JubSteven/POEM-v2/tree/release)
 
@@ -198,5 +216,7 @@ If you find our work useful, please consider citing us using the following BibTe
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
+
+Third-party components retain their respective license terms; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 

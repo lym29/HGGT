@@ -21,6 +21,7 @@ dist/
 *.egg
 
 # Test, coverage, and type-check caches
+/tests/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -48,6 +49,12 @@ htmlcov/
 
 # Demo outputs and local third-party clones
 outputs/
+/data/
+/checkpoints/
+*.pt
+*.pth
+*.safetensors
+hggt-train-*.err
 third_party/chumpy/
 third_party/pytorch3d/
 

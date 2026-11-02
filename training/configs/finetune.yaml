@@ -1,0 +1,303 @@
+# HGGT full-model fine-tuning with alternating single-view and synthetic multi-view data.
+# Paths may be set through environment variables or command-line overrides.
+seed: 42
+img_size: 518
+patch_size: 14
+max_img_per_gpu: 32
+num_workers: 4
+paths:
+  hamer_data: ${oc.env:HAMER_DATA_DIR,data/hamer_training_data}
+  synthetic_data: ${oc.env:HGGT_SYNTHETIC_DIR,data/hggt_synthetic}
+  mano_models: ${oc.env:MANO_MODEL_DIR,assets/mano_v1_2/models}
+model:
+  _target_: hggt.models.hggt.HGGT
+  img_size: ${img_size}
+  patch_size: ${patch_size}
+  enable_camera: true
+  enable_mano: true
+  enable_point: false
+  enable_depth: false
+  mano_qk_norm: false
+train:
+  epochs: 20
+  batches_per_epoch: 800
+  accum_steps: 4
+  save_every: 5
+val:
+  every: 5
+  batches: 400
+optim:
+  lr: 1.0e-06
+  min_lr: 1.0e-08
+  warmup_fraction: 0.05
+  weight_decay: 0.05
+  betas:
+  - 0.9
+  - 0.999
+  eps: 1.0e-08
+  grad_clip: 1.0
+  amp_dtype: bfloat16
+checkpoint:
+  init_path: ${oc.env:HGGT_INIT_CHECKPOINT,null}
+  resume_path: null
+logging:
+  output_dir: ${oc.env:HGGT_OUTPUT_DIR,outputs/train}
+  log_every: 10
+  tensorboard: true
+distributed:
+  backend: nccl
+  timeout_minutes: 30
+  find_unused_parameters: true
+  gradient_as_bucket_view: true
+  bucket_cap_mb: 25
+  broadcast_buffers: true
+cuda:
+  allow_tf32: true
+  cudnn_benchmark: false
+  cudnn_deterministic: false
+loss:
+  camera:
+    weight: 5.0
+    loss_type: l1
+  hand:
+    weight: 1.0
+    loss_type: l2
+    gamma: 0.8
+    weight_pose: 0.1
+    weight_beta: 0.05
+    weight_keypoints_3d: 5.0
+    weight_keypoints_2d: 1.0
+    weight_multiview_keypoints_2d: 1.0
+    weight_negative_depth: 1.0
+data:
+  train:
+    _target_: hggt.training.data.alternating_dataloader.AlternatingMultiDataLoader
+    num_workers: ${num_workers}
+    max_img_per_gpu: ${max_img_per_gpu}
+    accumulation_steps: ${train.accum_steps}
+    persistent_workers: false
+    dataset1_name: single
+    dataset2_name: multiple
+    common_config1:
+      fix_img_num: -1
+      fix_aspect_ratio: 1.0
+      training: true
+      inside_random: true
+      img_size: ${img_size}
+      patch_size: ${patch_size}
+      rescale: true
+      rescale_aug: true
+      load_depth: false
+      img_nums:
+      - 1
+      - 1
+      allow_duplicate_img: true
+      depth_scale: 1.0
+      augs:
+        cojitter: true
+        cojitter_ratio: 0.3
+        scales:
+        - 0.8
+        - 1.2
+        aspects:
+        - 1.0
+        - 1.0
+        color_jitter:
+          brightness: 0.5
+          contrast: 0.5
+          saturation: 0.5
+          hue: 0.1
+          p: 0.9
+        gray_scale: true
+        gau_blur: false
+    dataset1:
+      _target_: hggt.training.data.composed_dataset.ComposedDataset
+      dataset_configs:
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: freihand
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: interhand26m
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: mtc
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: cocow
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: ho3d
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: rhd
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: halpe
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: mpiinzsl
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: h2o3d
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: dex
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+    common_config2:
+      fix_img_num: -1
+      fix_aspect_ratio: 1.0
+      training: true
+      inside_random: true
+      img_size: ${img_size}
+      patch_size: ${patch_size}
+      rescale: true
+      rescale_aug: true
+      load_depth: true
+      img_nums:
+      - 2
+      - 10
+      allow_duplicate_img: true
+      depth_scale: 1.0
+      augs:
+        cojitter: true
+        cojitter_ratio: 0.3
+        scales:
+        - 0.8
+        - 1.2
+        aspects:
+        - 0.5
+        - 1.0
+        color_jitter:
+          brightness: 0.5
+          contrast: 0.5
+          saturation: 0.5
+          hue: 0.1
+          p: 0.9
+        gray_scale: true
+        gau_blur: false
+    dataset2:
+      _target_: hggt.training.data.composed_dataset.ComposedDataset
+      dataset_configs:
+      - _target_: hggt.training.data.datasets.hoi_dataset.HOIDataset
+        split: train
+        HOI_DATA_DIR: ${paths.synthetic_data}
+        mano_model_path: ${paths.mano_models}
+        max_samples: -1
+    seed: ${seed}
+  val:
+    _target_: hggt.training.data.alternating_dataloader.AlternatingMultiDataLoader
+    num_workers: ${num_workers}
+    max_img_per_gpu: ${max_img_per_gpu}
+    accumulation_steps: 2
+    persistent_workers: false
+    dataset1_name: single
+    dataset2_name: multiple
+    common_config1:
+      fix_img_num: -1
+      fix_aspect_ratio: 1.0
+      training: false
+      inside_random: true
+      img_size: ${img_size}
+      patch_size: ${patch_size}
+      rescale: true
+      rescale_aug: false
+      load_depth: false
+      img_nums:
+      - 1
+      - 1
+      allow_duplicate_img: true
+      depth_scale: 1.0
+      augs:
+        cojitter: false
+        cojitter_ratio: 0.5
+        scales: null
+        aspects:
+        - 1.0
+        - 1.0
+        color_jitter: null
+        gray_scale: false
+        gau_blur: false
+    dataset1:
+      _target_: hggt.training.data.composed_dataset.ComposedDataset
+      dataset_configs:
+      - _target_: hggt.training.data.datasets.hamer_image_dataset.HaMeRImageDataset
+        split: train
+        hamer_data_dir: ${paths.hamer_data}
+        dataset_name: ho3d
+        mano_model_path: ${paths.mano_models}
+        hamer_img_size: 256
+        epoch_size: 50000
+    common_config2:
+      fix_img_num: -1
+      fix_aspect_ratio: 1.0
+      training: false
+      inside_random: true
+      img_size: ${img_size}
+      patch_size: ${patch_size}
+      rescale: true
+      rescale_aug: false
+      load_depth: true
+      img_nums:
+      - 2
+      - 8
+      allow_duplicate_img: true
+      depth_scale: 1.0
+      augs:
+        cojitter: false
+        cojitter_ratio: 0.5
+        scales: null
+        aspects:
+        - 1.0
+        - 1.0
+        color_jitter: null
+        gray_scale: false
+        gau_blur: false
+    dataset2:
+      _target_: hggt.training.data.composed_dataset.ComposedDataset
+      dataset_configs:
+      - _target_: hggt.training.data.datasets.hoi_dataset.HOIDataset
+        split: test
+        HOI_DATA_DIR: ${paths.synthetic_data}
+        mano_model_path: ${paths.mano_models}
+        max_samples: 500
+    seed: ${seed}

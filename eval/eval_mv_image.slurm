@@ -2,14 +2,13 @@
 #SBATCH -J eval_mv_image
 #SBATCH -o eval_mv_image-%j.log
 #SBATCH -e eval_mv_image-%j.err
-#SBATCH -p GPU-8A100
 #SBATCH -N 1
 #SBATCH --gres=gpu:4
-#SBATCH --qos=gpu_8a100
 #SBATCH --cpus-per-task=16
 
 # Multi-view image evaluation on Slurm.
-# Edit the configuration block and SBATCH headers for your cluster, then:
+# Set your cluster's partition/account options and data paths, then submit
+# from the repository root:
 #   sbatch eval/eval_mv_image.slurm
 
 echo "Time is $(date)"
@@ -22,7 +21,7 @@ echo "Allocated CPUs: $SLURM_JOB_CPUS_PER_NODE"
 # module load cuda/12.1
 
 # Repository root (directory that contains .project-root / hggt/)
-REPO_ROOT="${REPO_ROOT:-$HOME/workspace/HGGT/main}"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}"
 cd "${REPO_ROOT}"
 
 export OMP_NUM_THREADS=1
