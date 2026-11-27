@@ -31,6 +31,8 @@
   <a href="https://github.com/lym29/HGGT"><img src="https://img.shields.io/badge/GitHub-Code-black?logo=github" alt="GitHub"></a>
 </p>
 
+> **Update:** HGGT is the local branch of [**FReSH**](https://lym29.github.io/FReSH/).
+
 ---
 
 <p align="center">
