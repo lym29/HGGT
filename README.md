@@ -1,4 +1,68 @@
-<h1 align="center">HGGT: Robust and Flexible 3D Hand Mesh Reconstruction from Uncalibrated Images</h1>
+<h1 align="center">HGGT &amp; FReSH</h1>
+
+> [!IMPORTANT]
+> **HGGT is the local branch of [FReSH](https://lym29.github.io/FReSH/).**
+> FReSH jointly reconstructs scene geometry, hand motion, and cameras from sparse, uncalibrated videos.
+
+<p align="center">
+  <a href="#fresh"><b>FReSH — Latest work</b></a> &nbsp;·&nbsp;
+  <a href="#hggt">HGGT — Original work</a> &nbsp;·&nbsp;
+  <a href="#code">HGGT code and usage</a>
+</p>
+
+<a id="fresh"></a>
+
+## FReSH — Latest work
+
+<h2 align="center">FReSH: Feed-Forward Joint Reconstruction of Scene-Hand from Uncalibrated Sparse Videos</h2>
+
+<p align="center">
+  <a href="https://lym29.github.io/">Yumeng Liu</a><sup>1</sup>,
+  <a href="https://www.xxlong.site/">Xiao-Xiao Long</a><sup>2</sup>,
+  <a href="https://people.mpi-inf.mpg.de/~mhaberma/">Marc Habermann</a><sup>3</sup>,
+  <a href="https://github.com/TheVaticanCameos">Xuanze Yang</a><sup>1</sup>,
+  <br>
+  <a href="https://clinplayer.github.io/">Cheng Lin</a><sup>4</sup>,
+  <a href="https://liuyuan-pal.github.io/">Yuan Liu</a><sup>5</sup>,
+  <a href="https://yuexinma.me/">Yuexin Ma</a><sup>6</sup>,
+  <a href="http://staff.ustc.edu.cn/~lgliu/">Ligang Liu</a><sup>1*</sup>
+</p>
+
+<p align="center">
+  <sup>1</sup>USTC &nbsp;
+  <sup>2</sup>Nanjing University &nbsp;
+  <sup>3</sup>MPI-INF &nbsp;
+  <sup>4</sup>MUST Macau &nbsp;
+  <sup>5</sup>HKUST &nbsp;
+  <sup>6</sup>ShanghaiTech &nbsp;
+  <br>
+  <sup>*</sup>Corresponding author
+</p>
+
+<p align="center">
+  <a href="https://lym29.github.io/FReSH/"><img src="https://img.shields.io/badge/Project_Page-FReSH-2f7d63?logo=googlechrome&logoColor=white" alt="FReSH Project Page"></a>
+  <a href="https://lym29.github.io/FReSH/assets/FReSH-paper.pdf"><img src="https://img.shields.io/badge/Paper-PDF-b31b1b" alt="FReSH Paper"></a>
+  <a href="https://lym29.github.io/FReSH/assets/FReSH-supplementary.pdf"><img src="https://img.shields.io/badge/Supplementary-PDF-8250df" alt="FReSH Supplementary Material"></a>
+  <a href="https://lym29.github.io/FReSH/#video"><img src="https://img.shields.io/badge/Video-Overview-blue" alt="FReSH Video Overview"></a>
+</p>
+
+<p align="center">
+  <a href="https://lym29.github.io/FReSH/">
+    <img src="media/fresh-teaser.png" alt="FReSH teaser: metric-scale scene and hand reconstruction, world-grounded hand motion, and quantitative comparisons from sparse uncalibrated videos" width="100%">
+  </a>
+</p>
+
+<p align="center">
+  <b>FReSH</b> turns sparse, uncalibrated videos into metric-scale scenes and world-grounded hand motion with a feed-forward model.
+</p>
+
+---
+
+<a id="hggt"></a>
+
+## HGGT — Original work
+
+<h2 align="center">HGGT: Robust and Flexible 3D Hand Mesh Reconstruction from Uncalibrated Images</h2>
 
 <p align="center">
   <a href="https://lym29.github.io/">Yumeng Liu</a><sup>1</sup>,
@@ -31,10 +95,6 @@
   <a href="https://github.com/lym29/HGGT"><img src="https://img.shields.io/badge/GitHub-Code-black?logo=github" alt="GitHub"></a>
 </p>
 
-> **Update:** HGGT is the local branch of [**FReSH**](https://lym29.github.io/FReSH/).
-
----
-
 <p align="center">
   <img src="media/teaser.png" alt="HGGT teaser: 3D hand mesh reconstruction from uncalibrated multi-view images" width="100%">
 </p>
@@ -45,7 +105,13 @@
 
 ---
 
-## Table of Contents
+<a id="code"></a>
+
+## HGGT code and usage
+
+The instructions below cover the HGGT implementation, pretrained models, and synthetic dataset.
+
+### Table of Contents
 
 - [⚙️ Installation](#⚙️-installation)
 - [🚀 Demo (pre-cropped multi-view images)](#🚀-demo-pre-cropped-multi-view-images)
@@ -203,7 +269,20 @@ We would like to express our gratitude to the authors and contributors of the fo
 
 ## Citation
 
-If you find our work useful, please consider citing us using the following BibTeX entry:
+If you find our work useful, please cite the corresponding paper:
+
+### FReSH
+
+```bibtex
+@misc{liu2026fresh,
+  title={FReSH: Feed-Forward Joint Reconstruction of Scene-Hand from Uncalibrated Sparse Videos},
+  author={Liu, Yumeng and Long, Xiao-Xiao and Habermann, Marc and Yang, Xuanze and Lin, Cheng and Liu, Yuan and Ma, Yuexin and Liu, Ligang},
+  year={2026},
+  url={https://lym29.github.io/FReSH/}
+}
+```
+
+### HGGT
 
 ```bibtex
 @article{liu2026hggt,
